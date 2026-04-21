@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat /tmp/design-extract/lre-baukomfort/project/karriere.html)",
+      "Read(//tmp/**)",
+      "Bash(cp /tmp/karriere-content.txt \"C:/Users/m.ehrlich/.claude/projects/c--Users-m-ehrlich-OneDrive---it-conex-GmbH-Dokumente-LRE-Baukomfort-new/tmp-karriere.txt\")",
+      "Read(//c/Users/m.ehrlich/.claude/projects/c--Users-m-ehrlich-OneDrive---it-conex-GmbH-Dokumente-LRE-Baukomfort-new/**)"
+    ]
+  }
+}

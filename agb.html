@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGB — LRE Baukomfort</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+:root {
+  --pink:#E8157D; --pink-dark:#C01065;
+  --bd:#0D1235; --bm:#1C2FA0; --ow:#F8F7F4;
+  --font-d:'Boska',Georgia,serif; --font-b:'Satoshi',system-ui,sans-serif;
+  --bg:#F8F7F4; --surf:#FFFFFF; --raised:#F0EEE9;
+  --tp:#0D1235; --ts:#5A5F7A; --tm:#9499B4;
+  --border:#E2E0DA; --borderS:#C8C6BE;
+  --sh-sm:0 1px 4px rgba(13,18,53,.07);
+  --sh-md:0 4px 20px rgba(13,18,53,.10);
+  --r1:4px; --r2:8px; --r3:16px;
+}
+[data-theme="dark"] {
+  --bg:#080C22; --surf:#0D1235; --raised:#151D4A;
+  --tp:#EEECEA; --ts:#9499B4; --tm:#5A5F7A;
+  --border:#1E274A; --borderS:#2A3660;
+  --sh-sm:0 1px 4px rgba(0,0,0,.3);
+  --sh-md:0 4px 20px rgba(0,0,0,.35);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);font-size:16px;line-height:1.6;background:var(--bg);color:var(--tp);transition:background .3s,color .3s}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
+
+.container{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;letter-spacing:.02em;border-radius:var(--r1);transition:all .18s;white-space:nowrap;line-height:1}
+.btn svg{width:16px;height:16px;flex-shrink:0}
+.btn-pink{background:var(--pink);color:#fff;padding:14px 28px}
+.btn-pink:hover{background:var(--pink-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,21,125,.35)}
+.btn-sm{font-size:12px;padding:9px 18px}
+
+/* Nav */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--bd);transition:box-shadow .3s}
+#nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:1.15rem;font-weight:700;color:var(--ow);flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-link{font-size:14px;font-weight:500;color:rgba(248,247,244,.6);cursor:pointer;transition:color .15s;background:none;border:none;padding:0}
+.nav-link:hover,.nav-link.active{color:var(--ow)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-icon-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:rgba(248,247,244,.65);transition:all .15s;background:transparent;border:none;cursor:pointer}
+.nav-icon-btn:hover{background:rgba(248,247,244,.1);color:var(--ow)}
+.nav-icon-btn svg{width:18px;height:18px}
+.nav-hamburger{display:none}
+#mobile-menu{display:none;position:fixed;inset:0;background:var(--bd);z-index:190;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+#mobile-menu.open{display:flex}
+.mobile-link{font-family:var(--font-d);font-size:2rem;font-weight:500;color:rgba(248,247,244,.8);transition:color .15s;text-decoration:none}
+.mobile-link:hover{color:var(--ow)}
+
+/* Hero */
+#hero{padding-top:148px;padding-bottom:56px;background:var(--bd);position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(28,47,160,.35) 0%,transparent 55%),radial-gradient(circle at 80% 70%,rgba(232,21,125,.18) 0%,transparent 50%)}
+.hero-content{position:relative;z-index:1;max-width:760px}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:14px}
+.hero-h1{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;line-height:1.1;color:var(--ow);margin-bottom:16px;text-wrap:balance}
+.hero-sub{font-size:clamp(14px,1.6vw,16px);color:rgba(248,247,244,.55);line-height:1.6;max-width:520px}
+
+/* Mountain divider */
+.mountain-divider{background:var(--bd);line-height:0}
+.mountain-divider svg{display:block;width:100%}
+
+/* Legal content */
+#legal{padding:clamp(48px,6vw,88px) 0}
+.legal-grid{display:grid;grid-template-columns:240px 1fr;gap:clamp(32px,5vw,72px);align-items:start}
+.legal-toc{position:sticky;top:96px;font-size:13px}
+.legal-toc-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tm);margin-bottom:14px}
+.legal-toc a{display:block;padding:7px 0;color:var(--ts);border-left:2px solid var(--border);padding-left:14px;transition:all .15s}
+.legal-toc a:hover{color:var(--tp);border-left-color:var(--pink)}
+.legal-content{max-width:780px;font-size:15px;color:var(--ts);line-height:1.75}
+.legal-content h2{font-family:var(--font-d);font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:500;color:var(--tp);margin:40px 0 14px;line-height:1.25;scroll-margin-top:96px;display:flex;align-items:baseline;gap:14px}
+.legal-content h2:first-child{margin-top:0}
+.legal-content h2 .num{font-size:.7em;font-family:var(--font-b);font-weight:700;color:var(--pink);letter-spacing:.05em}
+.legal-content h3{font-size:15px;font-weight:700;color:var(--tp);margin:20px 0 8px;letter-spacing:.01em}
+.legal-content p{margin-bottom:14px}
+.legal-content strong{color:var(--tp);font-weight:700}
+.legal-content a{color:var(--pink);border-bottom:1px solid transparent;transition:border-color .15s}
+.legal-content a:hover{border-bottom-color:var(--pink)}
+.legal-content ul{list-style:none;margin:10px 0 16px;padding:0}
+.legal-content ul li{padding-left:22px;position:relative;margin-bottom:6px}
+.legal-content ul li::before{content:'—';color:var(--pink);position:absolute;left:0;font-weight:700}
+.clause{counter-reset:sub;margin-bottom:8px}
+.clause-p{display:flex;gap:12px;margin-bottom:10px}
+.clause-p .idx{font-size:13px;font-weight:700;color:var(--tm);flex-shrink:0;min-width:26px;font-variant-numeric:tabular-nums;padding-top:2px}
+.clause-p .txt{flex:1}
+.callout{background:rgba(232,21,125,.08);border-left:3px solid var(--pink);border-radius:var(--r2);padding:18px 22px;margin:20px 0}
+.callout p{margin:0;font-size:14px;color:var(--ts)}
+.callout strong{color:var(--tp)}
+.info-block{background:var(--surf);border:1px solid var(--border);border-radius:var(--r3);padding:24px 28px;margin:16px 0 24px}
+.info-block-row{display:flex;flex-wrap:wrap;gap:4px 20px;font-size:15px}
+.info-block-row .k{color:var(--tm);min-width:140px}
+.info-block-row .v{color:var(--tp);font-weight:500}
+.legal-meta{font-size:13px;color:var(--tm);padding-top:24px;margin-top:40px;border-top:1px solid var(--border)}
+
+/* Footer */
+footer{background:var(--bd);padding:clamp(40px,5vw,64px) 0 28px}
+.footer-bottom-simple{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid rgba(248,247,244,.08)}
+.footer-copy{font-size:13px;color:rgba(248,247,244,.35)}
+.footer-legal{display:flex;gap:20px}
+.footer-legal a{font-size:13px;color:rgba(248,247,244,.35);transition:color .15s}
+.footer-legal a:hover,.footer-legal a.active{color:rgba(248,247,244,.7)}
+.footer-mini-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-col-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,247,244,.35);margin-bottom:14px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-link{font-size:14px;color:rgba(248,247,244,.55);transition:color .15s;cursor:pointer}
+.footer-link:hover{color:var(--ow)}
+.footer-brand-text{font-size:14px;color:rgba(248,247,244,.5);line-height:1.65;margin:12px 0 0;max-width:280px}
+
+@media(max-width:1024px){
+  .legal-grid{grid-template-columns:1fr;gap:40px}
+  .legal-toc{position:static}
+  .footer-mini-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .footer-mini-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero-h1{font-size:1.9rem}
+  .info-block-row .k{min-width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <button class="nav-icon-btn" style="position:absolute;top:20px;right:20px" onclick="closeMobileMenu()">
+    <i data-lucide="x" style="width:24px;height:24px"></i>
+  </button>
+  <a class="mobile-link" href="lre-baukomfort.html#leistungen">Leistungen</a>
+  <a class="mobile-link" href="lre-baukomfort.html#referenzen">Projekte</a>
+  <a class="mobile-link" href="lre-baukomfort.html#ueber-uns">Über uns</a>
+  <a class="mobile-link" href="karriere.html">Karriere</a>
+  <a class="mobile-link" href="lre-baukomfort.html#kontakt">Kontakt</a>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="lre-baukomfort.html">
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="4" fill="#1C2FA0"/>
+          <rect x="6" y="6" width="8" height="20" fill="#F8F7F4"/>
+          <rect x="17" y="6" width="9" height="9" fill="#E8157D"/>
+          <rect x="17" y="18" width="9" height="8" fill="rgba(248,247,244,0.25)"/>
+        </svg>
+        LRE Baukomfort
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="lre-baukomfort.html#leistungen">Leistungen</a>
+        <a class="nav-link" href="lre-baukomfort.html#referenzen">Projekte</a>
+        <a class="nav-link" href="lre-baukomfort.html#ueber-uns">Über uns</a>
+        <a class="nav-link" href="karriere.html">Karriere</a>
+        <a class="nav-link" href="lre-baukomfort.html#kontakt">Kontakt</a>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeBtn" onclick="toggleTheme()" title="Hell/Dunkel">
+          <i data-lucide="sun" id="themeIcon"></i>
+        </button>
+        <a class="btn btn-pink btn-sm" href="lre-baukomfort.html#kontakt">
+          <i data-lucide="send"></i>Kontakt
+        </a>
+        <button class="nav-icon-btn nav-hamburger" onclick="openMobileMenu()">
+          <i data-lucide="menu" style="width:22px;height:22px"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Rechtliches</div>
+      <h1 class="hero-h1">Allgemeine Geschäftsbedingungen</h1>
+      <p class="hero-sub">Unsere AGB für Handwerksleistungen im Fensterbau, Dachsanierung und Innenausbau. Klar formuliert — keine versteckten Klauseln.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Mountain divider -->
+<div class="mountain-divider">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="fill:var(--bg)">
+    <path d="M0,60 L0,38 L120,12 L240,30 L360,8 L480,28 L600,10 L720,26 L840,6 L960,24 L1080,14 L1200,32 L1320,18 L1440,36 L1440,60 Z"/>
+  </svg>
+</div>
+
+<!-- LEGAL -->
+<section id="legal">
+  <div class="container">
+    <div class="legal-grid">
+
+      <aside class="legal-toc">
+        <div class="legal-toc-title">Inhalt</div>
+        <a href="#geltung">§ 1 Geltungsbereich</a>
+        <a href="#vertrag">§ 2 Vertragsschluss</a>
+        <a href="#leistungen">§ 3 Leistungsumfang</a>
+        <a href="#preise">§ 4 Preise &amp; Zahlung</a>
+        <a href="#mitwirkung">§ 5 Mitwirkungspflichten</a>
+        <a href="#abnahme">§ 6 Abnahme</a>
+        <a href="#gewaehrleistung">§ 7 Gewährleistung</a>
+        <a href="#haftung">§ 8 Haftung</a>
+        <a href="#eigentumsvorbehalt">§ 9 Eigentumsvorbehalt</a>
+        <a href="#widerruf">§ 10 Widerrufsrecht</a>
+        <a href="#schluss">§ 11 Schlussbestimmungen</a>
+      </aside>
+
+      <div class="legal-content">
+
+        <div class="callout">
+          <p><strong>Vertragspartner:</strong> LRE Baukomfort · Thomas Vogel, [Straße und Hausnummer], [PLZ] [Ort] (im Folgenden „Auftragnehmer“ oder „wir“).</p>
+        </div>
+
+        <h2 id="geltung"><span class="num">§ 1</span>Geltungsbereich</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Diese Allgemeinen Geschäftsbedingungen (nachfolgend „AGB“) gelten für sämtliche Verträge zwischen dem Auftragnehmer und dem Auftraggeber über die Erbringung von Handwerksleistungen im Bereich <strong>Fensterbau, Dachsanierung, Innenausbau</strong> sowie damit verbundene Liefer- und Montageleistungen.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Verbraucher im Sinne dieser AGB ist jede natürliche Person, die das Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können (§ 13 BGB). Unternehmer ist jede natürliche oder juristische Person oder rechtsfähige Personengesellschaft, die bei Abschluss eines Rechtsgeschäfts in Ausübung ihrer gewerblichen oder selbständigen beruflichen Tätigkeit handelt (§ 14 BGB).</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Abweichenden Geschäftsbedingungen des Auftraggebers wird hiermit ausdrücklich widersprochen. Sie werden nur dann Vertragsbestandteil, wenn der Auftragnehmer ihrer Geltung schriftlich zustimmt.</span></div>
+          <div class="clause-p"><span class="idx">(4)</span><span class="txt">Bei Bauverträgen gelten ergänzend die Bestimmungen der VOB/B, sofern dies ausdrücklich im Einzelvertrag vereinbart ist — gegenüber Verbrauchern nur, wenn die VOB/B im Volltext übergeben oder auf zumutbare Weise bereitgestellt wurde.</span></div>
+        </div>
+
+        <h2 id="vertrag"><span class="num">§ 2</span>Vertragsschluss &amp; Angebote</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Unsere Angebote sind freibleibend und unverbindlich, sofern sie nicht ausdrücklich als verbindlich gekennzeichnet sind oder eine bestimmte Annahmefrist enthalten.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Die Bestellung einer Leistung durch den Auftraggeber gilt als verbindliches Vertragsangebot. Der Vertrag kommt zustande, sobald wir die Annahme des Auftrags schriftlich (auch per E-Mail) bestätigen oder mit der Ausführung der Leistung beginnen.</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Mündliche Nebenabreden bestehen nicht. Änderungen, Ergänzungen und Nebenabreden bedürfen der Textform (z. B. E-Mail); dies gilt auch für die Änderung dieser Textformklausel.</span></div>
+          <div class="clause-p"><span class="idx">(4)</span><span class="txt">Die in Angeboten enthaltenen Angaben zu Maßen, Farben, Gewichten und Materialeigenschaften sind nur verbindlich, soweit sie ausdrücklich als solche bezeichnet sind. Handelsübliche Abweichungen bleiben vorbehalten.</span></div>
+        </div>
+
+        <h2 id="leistungen"><span class="num">§ 3</span>Leistungsumfang &amp; Ausführung</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Der Umfang der vereinbarten Leistungen ergibt sich aus unserer schriftlichen Auftragsbestätigung bzw. dem unterzeichneten Angebot. Leistungen, die dort nicht aufgeführt sind, sind gesondert zu vergüten.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Wir sind berechtigt, zur Erfüllung des Auftrags qualifizierte Subunternehmer hinzuzuziehen. Die Verantwortung gegenüber dem Auftraggeber bleibt hiervon unberührt.</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Termine und Fristen sind nur dann verbindlich, wenn sie ausdrücklich als verbindlich vereinbart wurden. Bei höherer Gewalt, Witterungseinflüssen, die die Arbeit objektiv unmöglich machen, Lieferverzögerungen von Vorlieferanten, Krankheit oder sonstigen unvorhersehbaren, nicht von uns zu vertretenden Umständen, verlängern sich Fristen angemessen.</span></div>
+          <div class="clause-p"><span class="idx">(4)</span><span class="txt">Stellt sich nach Vertragsschluss heraus, dass zur ordnungsgemäßen Ausführung zusätzliche Leistungen erforderlich sind (z. B. bei verdeckten Schäden an Dachstuhl, Mauerwerk oder Anschlüssen), informieren wir den Auftraggeber unverzüglich und legen ein Nachtragsangebot vor.</span></div>
+        </div>
+
+        <h2 id="preise"><span class="num">§ 4</span>Preise &amp; Zahlungsbedingungen</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Sämtliche Preise verstehen sich — sofern nicht anders angegeben — netto zuzüglich der gesetzlichen Umsatzsteuer. Gegenüber Verbrauchern werden Preise inklusive Umsatzsteuer ausgewiesen, soweit wir umsatzsteuerpflichtig sind.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Bei Aufträgen mit einem Netto-Auftragsvolumen ab <strong>5.000 Euro</strong> sind wir berechtigt, angemessene Abschlagszahlungen auf bereits erbrachte, nachgewiesene Leistungen zu verlangen (§ 632 a BGB).</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Unsere Rechnungen sind — sofern nichts anderes vereinbart ist — innerhalb von <strong>14 Tagen</strong> ab Rechnungsdatum ohne Abzug zur Zahlung fällig.</span></div>
+          <div class="clause-p"><span class="idx">(4)</span><span class="txt">Bei Zahlungsverzug werden Verzugszinsen gemäß § 288 BGB berechnet (5 Prozentpunkte über dem Basiszinssatz gegenüber Verbrauchern, 9 Prozentpunkte gegenüber Unternehmern). Die Geltendmachung weiterer Verzugsschäden bleibt vorbehalten.</span></div>
+          <div class="clause-p"><span class="idx">(5)</span><span class="txt">Der Auftraggeber kann nur mit unbestrittenen oder rechtskräftig festgestellten Forderungen aufrechnen. Ein Zurückbehaltungsrecht steht dem Auftraggeber nur zu, soweit sein Gegenanspruch auf demselben Vertragsverhältnis beruht.</span></div>
+        </div>
+
+        <h2 id="mitwirkung"><span class="num">§ 5</span>Mitwirkungspflichten des Auftraggebers</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Der Auftraggeber stellt uns für die Durchführung der Arbeiten rechtzeitig, unentgeltlich und in einem verwendungsfähigen Zustand zur Verfügung: Zugang zur Baustelle/zum Objekt, Wasser, Strom, Baustrom ggf. als separater Anschluss sowie ausreichend Platz zum Abstellen von Werkzeug und Material.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Der Auftraggeber sorgt dafür, dass sich während der Ausführung der Arbeiten keine Wertgegenstände in unmittelbaren Arbeitsbereichen befinden, deckt bei Innenarbeiten bewegliche Möbel oder entfernt sie aus dem Arbeitsbereich, sofern nicht anders vereinbart.</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Kommt der Auftraggeber seinen Mitwirkungspflichten nicht, nicht rechtzeitig oder unvollständig nach, verlängern sich vereinbarte Termine angemessen. Dadurch entstehende Mehrkosten trägt der Auftraggeber.</span></div>
+        </div>
+
+        <h2 id="abnahme"><span class="num">§ 6</span>Abnahme</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Nach Fertigstellung der Leistung wird diese gemeinsam mit dem Auftraggeber abgenommen. Eine förmliche Abnahme kann mit kurzem Abnahmeprotokoll erfolgen.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Nimmt der Auftraggeber die Leistung nicht innerhalb einer ihm gesetzten angemessenen Frist ab, obwohl er hierzu verpflichtet ist, gilt die Leistung als abgenommen. Gegenüber Verbrauchern gilt dies nur, wenn der Auftragnehmer in der Fristsetzung auf diese Rechtsfolge hingewiesen hat (§ 640 Abs. 2 BGB).</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Unwesentliche Mängel berechtigen den Auftraggeber nicht zur Verweigerung der Abnahme. Sie sind im Abnahmeprotokoll zu dokumentieren und werden von uns zeitnah nachgebessert.</span></div>
+        </div>
+
+        <h2 id="gewaehrleistung"><span class="num">§ 7</span>Gewährleistung (Sachmängelhaftung)</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Für die von uns erbrachten Leistungen gelten die gesetzlichen Gewährleistungsvorschriften. Die Gewährleistungsfrist für unsere Leistungen beträgt gegenüber Verbrauchern <strong>5 Jahre</strong> für Arbeiten an Bauwerken (§ 634 a Abs. 1 Nr. 2 BGB) und im Übrigen <strong>2 Jahre</strong> ab Abnahme.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Bei Vereinbarung der VOB/B gegenüber Unternehmern beträgt die Gewährleistungsfrist <strong>4 Jahre</strong> für Bauleistungen, sofern im Einzelvertrag nichts anderes geregelt ist.</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Im Falle eines Mangels sind wir zunächst zur Nacherfüllung berechtigt und verpflichtet. Die Wahl zwischen Mangelbeseitigung oder Neuherstellung liegt bei uns, sofern nicht die vom Auftraggeber gewählte Art der Nacherfüllung aus Gründen der Zumutbarkeit oder Verhältnismäßigkeit vorzuziehen ist.</span></div>
+          <div class="clause-p"><span class="idx">(4)</span><span class="txt">Schlägt die Nacherfüllung fehl, ist sie unzumutbar oder verweigern wir sie ernsthaft und endgültig, kann der Auftraggeber nach den gesetzlichen Vorschriften mindern, zurücktreten oder Schadensersatz verlangen.</span></div>
+          <div class="clause-p"><span class="idx">(5)</span><span class="txt">Keine Gewährleistung übernehmen wir für Schäden, die nach Abnahme durch unsachgemäße Behandlung, normalen Verschleiß, fehlende oder unsachgemäße Wartung, bauliche Veränderungen durch Dritte, extreme Witterungseinflüsse oder mangelhafte Vorarbeiten Dritter entstehen.</span></div>
+        </div>
+
+        <h2 id="haftung"><span class="num">§ 8</span>Haftung</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Wir haften unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit, die auf einer fahrlässigen Pflichtverletzung von uns oder einer vorsätzlichen oder fahrlässigen Pflichtverletzung unserer gesetzlichen Vertreter oder Erfüllungsgehilfen beruhen, sowie nach dem Produkthaftungsgesetz.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Bei sonstigen Schäden haften wir unbeschränkt bei Vorsatz und grober Fahrlässigkeit sowie bei der Übernahme einer Garantie oder eines Beschaffungsrisikos.</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Bei leichter Fahrlässigkeit haften wir nur bei Verletzung wesentlicher Vertragspflichten (Pflichten, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung der Vertragspartner regelmäßig vertrauen darf — sog. Kardinalpflichten). In diesem Fall ist die Haftung auf den vertragstypischen, vorhersehbaren Schaden begrenzt.</span></div>
+          <div class="clause-p"><span class="idx">(4)</span><span class="txt">Im Übrigen ist die Haftung ausgeschlossen.</span></div>
+        </div>
+
+        <h2 id="eigentumsvorbehalt"><span class="num">§ 9</span>Eigentumsvorbehalt</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Gelieferte und noch nicht fest mit dem Grundstück verbundene Ware bleibt bis zur vollständigen Bezahlung aller Forderungen aus dem Vertragsverhältnis unser Eigentum.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Der Auftraggeber ist verpflichtet, die Vorbehaltsware pfleglich zu behandeln und uns über Zugriffe Dritter (z. B. Pfändung) unverzüglich zu informieren.</span></div>
+        </div>
+
+        <h2 id="widerruf"><span class="num">§ 10</span>Widerrufsrecht für Verbraucher</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Verbrauchern, die einen Vertrag außerhalb unserer Geschäftsräume oder im Wege des Fernabsatzes (z. B. per Telefon, E-Mail, Online-Formular) abschließen, steht ein gesetzliches Widerrufsrecht zu.</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Die Einzelheiten ergeben sich aus der separaten <strong>Widerrufsbelehrung</strong>, die dem Verbraucher vor Vertragsschluss in Textform übergeben wird.</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Ein Widerrufsrecht besteht u. a. nicht bei Verträgen zur Lieferung von Waren, die nicht vorgefertigt sind und für deren Herstellung eine individuelle Auswahl oder Bestimmung durch den Verbraucher maßgeblich ist oder die eindeutig auf die persönlichen Bedürfnisse des Verbrauchers zugeschnitten sind (§ 312 g Abs. 2 Nr. 1 BGB) — insbesondere bei maßgefertigten Fenstern, Türen oder Innenausbauelementen.</span></div>
+          <div class="clause-p"><span class="idx">(4)</span><span class="txt">Wünscht der Verbraucher ausdrücklich, dass wir mit der Leistung vor Ablauf der Widerrufsfrist beginnen, hat er bei Widerruf Wertersatz für die bis zum Widerruf bereits erbrachten Leistungen zu leisten.</span></div>
+        </div>
+
+        <h2 id="schluss"><span class="num">§ 11</span>Schlussbestimmungen</h2>
+        <div class="clause">
+          <div class="clause-p"><span class="idx">(1)</span><span class="txt">Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts (CISG).</span></div>
+          <div class="clause-p"><span class="idx">(2)</span><span class="txt">Erfüllungsort ist — soweit zulässig vereinbart — der Sitz des Auftragnehmers. Ausschließlicher Gerichtsstand für alle Streitigkeiten aus dem Vertragsverhältnis ist, sofern der Auftraggeber Kaufmann, juristische Person des öffentlichen Rechts oder ein öffentlich-rechtliches Sondervermögen ist, der Sitz des Auftragnehmers.</span></div>
+          <div class="clause-p"><span class="idx">(3)</span><span class="txt">Sollten einzelne Bestimmungen dieser AGB ganz oder teilweise unwirksam sein oder werden, so wird hierdurch die Wirksamkeit der übrigen Bestimmungen nicht berührt. An die Stelle der unwirksamen Bestimmung tritt die gesetzliche Regelung.</span></div>
+          <div class="clause-p"><span class="idx">(4)</span><span class="txt">Wir sind nicht bereit und nicht verpflichtet, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</span></div>
+        </div>
+
+        <div class="legal-meta">Stand: April 2026 · Version 1.0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-mini-grid">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:1.1rem;font-weight:700;color:var(--ow)">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="4" fill="#1C2FA0"/>
+            <rect x="6" y="6" width="8" height="20" fill="#F8F7F4"/>
+            <rect x="17" y="6" width="9" height="9" fill="#E8157D"/>
+            <rect x="17" y="18" width="9" height="8" fill="rgba(248,247,244,0.25)"/>
+          </svg>
+          LRE Baukomfort
+        </div>
+        <p class="footer-brand-text">Handwerksbetrieb im Schwarzwald. Fensterbau, Dachsanierung, Innenausbau.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <div class="footer-links">
+          <a class="footer-link" href="lre-baukomfort.html">Startseite</a>
+          <a class="footer-link" href="lre-baukomfort.html#leistungen">Leistungen</a>
+          <a class="footer-link" href="karriere.html">Karriere</a>
+          <a class="footer-link" href="lre-baukomfort.html#kontakt">Kontakt</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Kontakt</div>
+        <div class="footer-links">
+          <a class="footer-link" href="tel:+4915784187568">0157 / 84187568</a>
+          <a class="footer-link" href="mailto:info@lre-baukomfort.de">info@lre-baukomfort.de</a>
+          <span class="footer-link">Mo–Fr 7:00–17:00 Uhr</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom-simple">
+      <div class="footer-copy">© 2025 LRE Baukomfort · Thomas Vogel</div>
+      <div class="footer-legal">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="agb.html" class="active">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+lucide.createIcons();
+
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  const icon = document.getElementById('themeIcon');
+  icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+  lucide.createIcons();
+}
+
+function openMobileMenu(){document.getElementById('mobile-menu').classList.add('open');document.body.style.overflow='hidden'}
+function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');document.body.style.overflow=''}
+</script>
+</body>
+</html>

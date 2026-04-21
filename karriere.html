@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karriere — LRE Baukomfort</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+:root {
+  --pink:#E8157D; --pink-dark:#C01065;
+  --bd:#0D1235; --bm:#1C2FA0; --ow:#F8F7F4;
+  --font-d:'Boska',Georgia,serif; --font-b:'Satoshi',system-ui,sans-serif;
+  --bg:#F8F7F4; --surf:#FFFFFF; --raised:#F0EEE9;
+  --tp:#0D1235; --ts:#5A5F7A; --tm:#9499B4;
+  --border:#E2E0DA; --borderS:#C8C6BE;
+  --sh-sm:0 1px 4px rgba(13,18,53,.07);
+  --sh-md:0 4px 20px rgba(13,18,53,.10);
+  --sh-lg:0 16px 48px rgba(13,18,53,.13);
+  --r1:4px; --r2:8px; --r3:16px;
+}
+[data-theme="dark"] {
+  --bg:#080C22; --surf:#0D1235; --raised:#151D4A;
+  --tp:#EEECEA; --ts:#9499B4; --tm:#5A5F7A;
+  --border:#1E274A; --borderS:#2A3660;
+  --sh-sm:0 1px 4px rgba(0,0,0,.3);
+  --sh-md:0 4px 20px rgba(0,0,0,.35);
+  --sh-lg:0 16px 48px rgba(0,0,0,.45);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);font-size:16px;line-height:1.6;background:var(--bg);color:var(--tp);transition:background .3s,color .3s}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
+input,textarea,select{font-family:var(--font-b)}
+
+.container{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.12s}
+.reveal-delay-2{transition-delay:.24s}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;letter-spacing:.02em;border-radius:var(--r1);transition:all .18s;white-space:nowrap;line-height:1}
+.btn svg{width:16px;height:16px;flex-shrink:0}
+.btn-pink{background:var(--pink);color:#fff;padding:14px 28px}
+.btn-pink:hover{background:var(--pink-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,21,125,.35)}
+.btn-dark{background:var(--bd);color:var(--ow);padding:14px 28px}
+.btn-dark:hover{background:var(--bm)}
+[data-theme="dark"] .btn-dark{background:var(--ow);color:var(--bd)}
+.btn-outline{background:transparent;color:var(--tp);border:1.5px solid var(--borderS);padding:13px 27px}
+.btn-outline:hover{border-color:var(--tp)}
+.btn-sm{font-size:12px;padding:9px 18px}
+.btn-lg{font-size:16px;padding:18px 36px}
+
+/* Nav */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--bd);transition:box-shadow .3s}
+#nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:1.15rem;font-weight:700;color:var(--ow);flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-link{font-size:14px;font-weight:500;color:rgba(248,247,244,.6);cursor:pointer;transition:color .15s;background:none;border:none;padding:0}
+.nav-link:hover,.nav-link.active{color:var(--ow)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-icon-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:rgba(248,247,244,.65);transition:all .15s;background:transparent;border:none;cursor:pointer}
+.nav-icon-btn:hover{background:rgba(248,247,244,.1);color:var(--ow)}
+.nav-icon-btn svg{width:18px;height:18px}
+.nav-hamburger{display:none}
+#mobile-menu{display:none;position:fixed;inset:0;background:var(--bd);z-index:190;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+#mobile-menu.open{display:flex}
+.mobile-link{font-family:var(--font-d);font-size:2rem;font-weight:500;color:rgba(248,247,244,.8);transition:color .15s;text-decoration:none}
+.mobile-link:hover{color:var(--ow)}
+
+/* Hero */
+#hero{min-height:52vh;display:flex;align-items:flex-end;padding-top:68px;position:relative;overflow:hidden;background:var(--bd)}
+.hero-bg{position:absolute;inset:0;background:url('https://picsum.photos/1600/700?random=55') center/cover no-repeat;opacity:.22}
+.hero-gradient{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,18,53,.98) 0%,rgba(13,18,53,.5) 60%,rgba(13,18,53,.1) 100%)}
+.hero-content{position:relative;z-index:1;padding:clamp(48px,6vw,80px) 0;max-width:760px}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:16px}
+.hero-h1{font-family:var(--font-d);font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700;line-height:1.1;color:var(--ow);margin-bottom:20px;text-wrap:balance}
+.hero-h1 em{font-style:normal;color:var(--pink)}
+.hero-sub{font-size:clamp(15px,1.8vw,17px);color:rgba(248,247,244,.6);line-height:1.65;max-width:500px}
+
+/* Mountain divider */
+.mountain-divider{background:var(--bd);line-height:0}
+.mountain-divider svg{display:block;width:100%}
+
+/* Why section */
+#warum{padding:clamp(64px,8vw,112px) 0;background:var(--bg)}
+#warum h2{font-family:var(--font-d);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:500;color:var(--tp);margin:12px 0 48px;line-height:1.15}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.why-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r3);padding:28px}
+.why-icon{width:44px;height:44px;background:var(--raised);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--pink);margin-bottom:16px}
+.why-icon svg{width:20px;height:20px}
+.why-title{font-family:var(--font-d);font-size:1.1rem;font-weight:500;color:var(--tp);margin-bottom:8px}
+.why-desc{font-size:14px;color:var(--ts);line-height:1.6}
+
+/* Jobs section */
+#stellen{padding:clamp(64px,8vw,112px) 0;background:var(--raised)}
+[data-theme="dark"] #stellen{background:var(--surf)}
+#stellen h2{font-family:var(--font-d);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:500;color:var(--tp);margin:12px 0 40px;line-height:1.15}
+.jobs-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:48px}
+.job-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:box-shadow .2s,border-color .2s}
+.job-card.open .job-body{display:block}
+.job-card:hover{border-color:var(--borderS);box-shadow:var(--sh-sm)}
+.job-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;gap:16px}
+.job-header-left{flex:1}
+.job-title{font-size:16px;font-weight:700;color:var(--tp)}
+.job-meta{font-size:13px;color:var(--ts);display:flex;align-items:center;gap:10px;margin-top:4px;flex-wrap:wrap}
+.job-meta svg{width:13px;height:13px;color:var(--tm);flex-shrink:0}
+.job-badge{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:100px}
+.job-badge.sofort{background:rgba(232,21,125,.1);color:var(--pink)}
+.job-badge.flexibel{background:rgba(28,47,160,.1);color:var(--bm)}
+[data-theme="dark"] .job-badge.flexibel{background:rgba(28,47,160,.2)}
+.job-toggle{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--tm);flex-shrink:0;transition:all .2s;background:var(--raised)}
+.job-card.open .job-toggle{background:var(--pink);border-color:var(--pink);color:#fff;transform:rotate(45deg)}
+.job-body{display:none;padding:0 24px 24px;border-top:1px solid var(--border);margin-top:0}
+.job-body-inner{padding-top:20px}
+.job-section-title{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tm);margin-bottom:10px;margin-top:20px}
+.job-section-title:first-child{margin-top:0}
+.job-list{display:flex;flex-direction:column;gap:6px}
+.job-list li{font-size:14px;color:var(--ts);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.job-list li::before{content:'—';color:var(--pink);font-weight:700;flex-shrink:0;margin-top:0}
+.job-apply-row{display:flex;align-items:center;gap:16px;margin-top:24px;flex-wrap:wrap}
+
+/* Bewerbung section */
+#bewerbung{padding:clamp(64px,8vw,112px) 0;background:var(--bg)}
+.bewerbung-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(40px,6vw,96px);align-items:start}
+.bewerbung-text h2{font-family:var(--font-d);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:500;color:var(--tp);margin:12px 0 20px;line-height:1.15}
+.bewerbung-text p{font-size:15px;color:var(--ts);line-height:1.7;margin-bottom:16px}
+.process-steps{display:flex;flex-direction:column;gap:0;margin-top:32px}
+.process-step{display:flex;gap:16px;position:relative;padding-bottom:24px}
+.process-step:last-child{padding-bottom:0}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--bd);color:var(--ow);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;position:relative;z-index:1}
+[data-theme="dark"] .step-num{background:var(--pink)}
+.process-step:not(:last-child) .step-num::after{content:'';position:absolute;top:36px;left:50%;transform:translateX(-50%);width:1.5px;height:calc(100% + 8px);background:var(--border)}
+.step-content{padding-top:6px}
+.step-title{font-size:14px;font-weight:700;color:var(--tp)}
+.step-desc{font-size:13px;color:var(--ts);margin-top:3px}
+
+/* Form */
+.bewerbung-form{background:var(--surf);border:1px solid var(--border);border-radius:var(--r3);padding:36px}
+.bewerbung-form h3{font-family:var(--font-d);font-size:1.5rem;font-weight:500;color:var(--tp);margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.fg label{font-size:13px;font-weight:600;color:var(--tp)}
+.fg input,.fg textarea,.fg select{font-family:var(--font-b);font-size:15px;background:var(--raised);border:1.5px solid var(--border);border-radius:var(--r1);padding:12px 16px;color:var(--tp);outline:none;transition:border-color .15s,box-shadow .15s;width:100%}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--bm);box-shadow:0 0 0 3px rgba(28,47,160,.1);background:var(--surf)}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--tm)}
+.fg textarea{resize:vertical;min-height:90px}
+.upload-zone{border:2px dashed var(--borderS);border-radius:var(--r2);padding:24px 16px;text-align:center;cursor:pointer;transition:all .18s;background:var(--raised);position:relative}
+.upload-zone:hover{border-color:var(--bm);background:var(--surf)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-zone svg{width:26px;height:26px;color:var(--tm);margin:0 auto 8px}
+.upload-zone .uz-title{font-size:14px;font-weight:600;color:var(--tp)}
+.upload-zone .uz-sub{font-size:12px;color:var(--tm);margin-top:3px}
+.form-success{display:none;background:#d1fae5;border:1px solid #6ee7b7;border-radius:var(--r2);padding:16px 20px;font-size:14px;color:#065f46;margin-top:12px}
+[data-theme="dark"] .form-success{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:#6ee7b7}
+
+/* Footer */
+footer{background:var(--bd);padding:clamp(40px,5vw,64px) 0 28px}
+.footer-bottom-simple{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid rgba(248,247,244,.08)}
+.footer-copy{font-size:13px;color:rgba(248,247,244,.35)}
+.footer-legal{display:flex;gap:20px}
+.footer-legal a{font-size:13px;color:rgba(248,247,244,.35);transition:color .15s}
+.footer-legal a:hover{color:rgba(248,247,244,.7)}
+.footer-mini-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-col-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,247,244,.35);margin-bottom:14px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-link{font-size:14px;color:rgba(248,247,244,.55);transition:color .15s;cursor:pointer}
+.footer-link:hover{color:var(--ow)}
+.footer-brand-text{font-size:14px;color:rgba(248,247,244,.5);line-height:1.65;margin:12px 0 0;max-width:280px}
+
+@media(max-width:1024px){
+  .bewerbung-grid{grid-template-columns:1fr;gap:48px}
+  .footer-mini-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .why-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-mini-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero-h1{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <button class="nav-icon-btn" style="position:absolute;top:20px;right:20px" onclick="closeMobileMenu()">
+    <i data-lucide="x" style="width:24px;height:24px"></i>
+  </button>
+  <a class="mobile-link" href="lre-baukomfort.html#leistungen">Leistungen</a>
+  <a class="mobile-link" href="lre-baukomfort.html#referenzen">Projekte</a>
+  <a class="mobile-link" href="lre-baukomfort.html#ueber-uns">Über uns</a>
+  <a class="mobile-link" href="karriere.html" style="color:var(--ow)">Karriere</a>
+  <a class="mobile-link" href="lre-baukomfort.html#kontakt">Kontakt</a>
+  <button class="btn btn-pink" onclick="scrollToForm()"><i data-lucide="send"></i>Jetzt bewerben</button>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="lre-baukomfort.html">
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="4" fill="#1C2FA0"/>
+          <rect x="6" y="6" width="8" height="20" fill="#F8F7F4"/>
+          <rect x="17" y="6" width="9" height="9" fill="#E8157D"/>
+          <rect x="17" y="18" width="9" height="8" fill="rgba(248,247,244,0.25)"/>
+        </svg>
+        LRE Baukomfort
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="lre-baukomfort.html#leistungen">Leistungen</a>
+        <a class="nav-link" href="lre-baukomfort.html#referenzen">Projekte</a>
+        <a class="nav-link" href="lre-baukomfort.html#ueber-uns">Über uns</a>
+        <a class="nav-link active" href="karriere.html">Karriere</a>
+        <a class="nav-link" href="lre-baukomfort.html#kontakt">Kontakt</a>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeBtn" onclick="toggleTheme()" title="Hell/Dunkel">
+          <i data-lucide="sun" id="themeIcon"></i>
+        </button>
+        <button class="btn btn-pink btn-sm" onclick="scrollToForm()">
+          <i data-lucide="send"></i>Bewerben
+        </button>
+        <button class="nav-icon-btn nav-hamburger" onclick="openMobileMenu()">
+          <i data-lucide="menu" style="width:22px;height:22px"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Karriere bei LRE Baukomfort</div>
+      <h1 class="hero-h1">Gute Arbeit.<br><em>Guter Arbeitgeber.</em></h1>
+      <p class="hero-sub">Wir sind ein Handwerksbetrieb aus dem Schwarzwald. Kein Konzern, keine Versprechen aus dem Hochglanzprospekt. Wenn es passt, weißt du es nach dem ersten Tag.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Mountain divider -->
+<div class="mountain-divider">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="fill:var(--bg)">
+    <path d="M0,80 L0,50 L100,18 L200,45 L320,8 L440,42 L540,12 L640,38 L760,5 L860,36 L960,16 L1080,45 L1200,20 L1320,48 L1440,28 L1440,80 Z"/>
+  </svg>
+</div>
+
+<!-- WARUM LRE -->
+<section id="warum">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Warum LRE</div>
+      <h2>Was dich erwartet — ohne Marketing-Sprech</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon"><i data-lucide="euro"></i></div>
+        <div class="why-title">Faire Bezahlung</div>
+        <p class="why-desc">Tariforientiert, pünktlich, mit Zuschlägen für Überstunden. Keine Spielchen mit dem Lohnzettel.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon"><i data-lucide="clock"></i></div>
+        <div class="why-title">Geregelte Arbeitszeiten</div>
+        <p class="why-desc">Mo–Fr, kein Wochenendeinsatz ohne Absprache. Feierabend ist Feierabend — wir schreiben keine Nachrichten nachts.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon"><i data-lucide="hard-hat"></i></div>
+        <div class="why-title">Eigenes Werkzeug & Fahrzeug</div>
+        <p class="why-desc">Ordentliches Werkzeug, saubere Arbeitskleidung, Firmenfahrzeug für die Montage. Kein Eigeninvestment.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i data-lucide="graduation-cap"></i></div>
+        <div class="why-title">Weiterbildung möglich</div>
+        <p class="why-desc">Wer sich entwickeln will, bekommt Unterstützung — Herstellerschulungen, Meisterkurs, was sinnvoll ist.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon"><i data-lucide="users"></i></div>
+        <div class="why-title">Kleines Team, kurze Wege</div>
+        <p class="why-desc">Du kennst alle beim Namen. Probleme werden direkt gelöst, nicht durch drei Abteilungen geschoben.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon"><i data-lucide="map-pin"></i></div>
+        <div class="why-title">Regional, nicht pendeln</div>
+        <p class="why-desc">Wir arbeiten im Schwarzwald — kurze Anfahrten, kein wochenlanger Montage-Einsatz weit weg von zu Hause.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFENE STELLEN -->
+<section id="stellen">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Offene Stellen</div>
+      <h2>Was wir gerade suchen</h2>
+    </div>
+
+    <div class="jobs-grid">
+
+      <!-- Job 1 -->
+      <div class="job-card reveal" id="job-1">
+        <div class="job-header" onclick="toggleJob('job-1')">
+          <div class="job-header-left">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <div class="job-title">Fenstermonteur / Tischler (m/w/d)</div>
+              <span class="job-badge sofort">ab sofort</span>
+            </div>
+            <div class="job-meta">
+              <i data-lucide="map-pin"></i>Schwarzwald-Baar
+              <span style="color:var(--tm)">·</span>
+              <i data-lucide="briefcase"></i>Vollzeit
+              <span style="color:var(--tm)">·</span>
+              <i data-lucide="euro"></i>nach Qualifikation
+            </div>
+          </div>
+          <div class="job-toggle"><i data-lucide="plus" style="width:14px;height:14px"></i></div>
+        </div>
+        <div class="job-body" id="job-1-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Was du mitbringst</div>
+            <ul class="job-list">
+              <li>Ausbildung als Tischler, Schreiner, Fensterbauer oder ähnlich — oder mehrere Jahre Erfahrung im Einbau</li>
+              <li>Handwerkliches Geschick und sorgfältige Arbeitsweise</li>
+              <li>Führerschein Klasse B</li>
+              <li>Du kommst pünktlich, kommunizierst klar, hinterlässt eine saubere Baustelle</li>
+            </ul>
+            <div class="job-section-title">Was du machst</div>
+            <ul class="job-list">
+              <li>Einbau, Tausch und Justage von Fenstern, Türen und Hebe-Schiebe-Elementen</li>
+              <li>Montage bei Privat- und Gewerbekunden in der Region</li>
+              <li>Gelegentlich Aufmaß und Vorbereitung gemeinsam mit dem Projektleiter</li>
+            </ul>
+            <div class="job-apply-row">
+              <button class="btn btn-pink" onclick="prefillJob('Fenstermonteur / Tischler (m/w/d)')"><i data-lucide="send"></i>Jetzt bewerben</button>
+              <span style="font-size:13px;color:var(--tm)">Oder anrufen: <a href="tel:+4977200000000" style="color:var(--tp);font-weight:600">07720 000 000</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job 2 -->
+      <div class="job-card reveal reveal-delay-1" id="job-2">
+        <div class="job-header" onclick="toggleJob('job-2')">
+          <div class="job-header-left">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <div class="job-title">Dachdecker / Helfer Dachsanierung (m/w/d)</div>
+              <span class="job-badge flexibel">flexibler Einstieg</span>
+            </div>
+            <div class="job-meta">
+              <i data-lucide="map-pin"></i>Raum Freiburg & Schwarzwald
+              <span style="color:var(--tm)">·</span>
+              <i data-lucide="briefcase"></i>Vollzeit
+            </div>
+          </div>
+          <div class="job-toggle"><i data-lucide="plus" style="width:14px;height:14px"></i></div>
+        </div>
+        <div class="job-body" id="job-2-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Was du mitbringst</div>
+            <ul class="job-list">
+              <li>Ausbildung als Dachdecker von Vorteil — aber kein Muss</li>
+              <li>Schwindelfrei, körperlich fit, zuverlässig</li>
+              <li>Führerschein und Lust auf Arbeit im Freien, auch im Schwarzwald-Winter</li>
+            </ul>
+            <div class="job-section-title">Was du machst</div>
+            <ul class="job-list">
+              <li>Dacheindeckung, Dämmung, Anschlussarbeiten</li>
+              <li>Sturmschaden-Notfallreparaturen und Wartungsarbeiten</li>
+              <li>Arbeit auf Privat- und Gewerbegebäuden in der Region</li>
+            </ul>
+            <div class="job-apply-row">
+              <button class="btn btn-pink" onclick="prefillJob('Dachdecker / Helfer Dachsanierung (m/w/d)')"><i data-lucide="send"></i>Jetzt bewerben</button>
+              <span style="font-size:13px;color:var(--tm)">Oder anrufen: <a href="tel:+4977200000000" style="color:var(--tp);font-weight:600">07720 000 000</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job 3 -->
+      <div class="job-card reveal reveal-delay-2" id="job-3">
+        <div class="job-header" onclick="toggleJob('job-3')">
+          <div class="job-header-left">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <div class="job-title">Trockenbauer / Innenausbau (m/w/d)</div>
+              <span class="job-badge flexibel">Vollzeit / Teilzeit</span>
+            </div>
+            <div class="job-meta">
+              <i data-lucide="map-pin"></i>Hochschwarzwald
+              <span style="color:var(--tm)">·</span>
+              <i data-lucide="briefcase"></i>Vollzeit oder Teilzeit
+            </div>
+          </div>
+          <div class="job-toggle"><i data-lucide="plus" style="width:14px;height:14px"></i></div>
+        </div>
+        <div class="job-body" id="job-3-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Was du mitbringst</div>
+            <ul class="job-list">
+              <li>Erfahrung im Trockenbau, Bodenbelägen oder Türenmontage</li>
+              <li>Sorgfalt und Eigeninitiative — wir erklären einmal, dann läuft es</li>
+              <li>Führerschein Klasse B</li>
+            </ul>
+            <div class="job-section-title">Was du machst</div>
+            <ul class="job-list">
+              <li>Trockenbauarbeiten, Deckenabhängungen, Raumtrenner</li>
+              <li>Bodenbeläge, Sockelleisten, Innentüren</li>
+              <li>Übergabe der Baustelle in Besenzustand — das ist bei uns Standard</li>
+            </ul>
+            <div class="job-apply-row">
+              <button class="btn btn-pink" onclick="prefillJob('Trockenbauer / Innenausbau (m/w/d)')"><i data-lucide="send"></i>Jetzt bewerben</button>
+              <span style="font-size:13px;color:var(--tm)">Oder anrufen: <a href="tel:+4977200000000" style="color:var(--tp);font-weight:600">07720 000 000</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Initiativ -->
+      <div class="job-card reveal" style="background:var(--raised)" id="job-init">
+        <div class="job-header" onclick="toggleJob('job-init')">
+          <div class="job-header-left">
+            <div class="job-title" style="color:var(--ts)">Nichts passt — aber Handwerk liegt dir?</div>
+            <div class="job-meta"><i data-lucide="mail"></i>Initiativbewerbung jederzeit willkommen</div>
+          </div>
+          <div class="job-toggle"><i data-lucide="plus" style="width:14px;height:14px"></i></div>
+        </div>
+        <div class="job-body" id="job-init-body">
+          <div class="job-body-inner">
+            <p style="font-size:14px;color:var(--ts);line-height:1.6;margin-bottom:20px">
+              Schick uns drei Sätze — was du kannst, was du suchst. Kein Anschreiben, kein PDF-Lebenslauf nötig. Wenn es passt, melden wir uns.
+            </p>
+            <button class="btn btn-pink btn-sm" onclick="prefillJob('Initiativbewerbung')"><i data-lucide="send"></i>Kurz melden</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BEWERBUNGSPROZESS + FORMULAR -->
+<section id="bewerbung">
+  <div class="container">
+    <div class="bewerbung-grid">
+      <div>
+        <div class="reveal">
+          <div class="eyebrow">So läuft es ab</div>
+          <h2>Kein Bewerbungs-Marathon</h2>
+          <p>Wir verschwenden keine Zeit — weder deine noch unsere. Drei Schritte, fertig.</p>
+        </div>
+        <div class="process-steps reveal reveal-delay-1">
+          <div class="process-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-title">Kurze Nachricht</div>
+              <div class="step-desc">Formular ausfüllen oder anrufen — ein paar Zeilen reichen. Kein Anschreiben, kein Bewerbungsfoto.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-title">Kurzes Gespräch</div>
+              <div class="step-desc">Telefonat oder persönliches Treffen — 30 Minuten, damit wir uns ein Bild machen können. Beide Seiten.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div class="step-title">Probetag (optional)</div>
+              <div class="step-desc">Wer möchte, kann einen Tag mitfahren. Bezahlt. Kein Test, einfach schauen ob es passt.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bewerbung-form reveal reveal-delay-1">
+        <h3>Kurz bewerben</h3>
+        <form onsubmit="submitForm(event,'bewerbung-success')">
+          <div class="form-row">
+            <div class="fg"><label>Vorname</label><input type="text" placeholder="Max" required></div>
+            <div class="fg"><label>Nachname</label><input type="text" placeholder="Mustermann" required></div>
+          </div>
+          <div class="fg">
+            <label>Stelle</label>
+            <select id="stelle-select">
+              <option value="">Stelle wählen …</option>
+              <option>Fenstermonteur / Tischler (m/w/d)</option>
+              <option>Dachdecker / Helfer Dachsanierung (m/w/d)</option>
+              <option>Trockenbauer / Innenausbau (m/w/d)</option>
+              <option>Initiativbewerbung</option>
+            </select>
+          </div>
+          <div class="fg"><label>Telefon oder E-Mail</label><input type="text" placeholder="07720 123456 oder max@muster.de" required></div>
+          <div class="fg">
+            <label>Drei Sätze über dich (optional)</label>
+            <textarea placeholder="Was machst du gerade, was interessiert dich, was kannst du?" rows="3"></textarea>
+          </div>
+          <div class="fg">
+            <label>Lebenslauf / Zeugnisse (optional)</label>
+            <div class="upload-zone">
+              <input type="file" accept=".pdf,.doc,.docx,.jpg,.png" multiple>
+              <i data-lucide="upload-cloud"></i>
+              <div class="uz-title">Datei auswählen oder hierher ziehen</div>
+              <div class="uz-sub">PDF, DOC, JPG bis 10 MB</div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-pink" style="width:100%;justify-content:center;margin-top:4px">
+            <i data-lucide="send"></i>Bewerbung absenden
+          </button>
+        </form>
+        <div class="form-success" id="bewerbung-success">Danke! Wir melden uns innerhalb von 2 Werktagen bei dir.</div>
+        <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--tm)">
+          Oder direkt: <a href="tel:+4977200000000" style="font-weight:700;color:var(--tp)">07720 000 000</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-mini-grid">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:1.1rem;font-weight:700;color:var(--ow)">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="4" fill="#1C2FA0"/>
+            <rect x="6" y="6" width="8" height="20" fill="#F8F7F4"/>
+            <rect x="17" y="6" width="9" height="9" fill="#E8157D"/>
+            <rect x="17" y="18" width="9" height="8" fill="rgba(248,247,244,0.25)"/>
+          </svg>
+          LRE Baukomfort
+        </div>
+        <p class="footer-brand-text">Handwerksbetrieb im Schwarzwald. Fensterbau, Dachsanierung, Innenausbau.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <div class="footer-links">
+          <a class="footer-link" href="lre-baukomfort.html">Startseite</a>
+          <a class="footer-link" href="lre-baukomfort.html#leistungen">Leistungen</a>
+          <a class="footer-link" href="lre-baukomfort.html#ueber-uns">Über uns</a>
+          <a class="footer-link" href="lre-baukomfort.html#kontakt">Kontakt</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Kontakt</div>
+        <div class="footer-links">
+          <a class="footer-link" href="tel:+4977200000000">07720 000 000</a>
+          <a class="footer-link" href="mailto:info@lre-baukomfort.de">info@lre-baukomfort.de</a>
+          <span class="footer-link">Mo–Fr 7:00–17:00 Uhr</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom-simple">
+      <div class="footer-copy">© 2025 LRE Baukomfort · Thomas Vogel</div>
+      <div class="footer-legal">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="agb.html">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+lucide.createIcons();
+
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  const icon = document.getElementById('themeIcon');
+  icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+  lucide.createIcons();
+}
+
+function openMobileMenu() { document.getElementById('mobile-menu').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMobileMenu() { document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow=''; }
+
+function scrollToForm() {
+  closeMobileMenu();
+  const el = document.getElementById('bewerbung');
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+}
+
+function toggleJob(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+  lucide.createIcons();
+}
+
+function prefillJob(title) {
+  const sel = document.getElementById('stelle-select');
+  for (let i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].value === title || sel.options[i].text === title) {
+      sel.selectedIndex = i;
+      break;
+    }
+  }
+  scrollToForm();
+}
+
+function submitForm(e, id) {
+  e.preventDefault();
+  document.getElementById(id).style.display = 'block';
+  e.target.style.opacity = '.5';
+  e.target.style.pointerEvents = 'none';
+}
+
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

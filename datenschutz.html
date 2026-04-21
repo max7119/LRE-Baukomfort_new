@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datenschutz — LRE Baukomfort</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+:root {
+  --pink:#E8157D; --pink-dark:#C01065;
+  --bd:#0D1235; --bm:#1C2FA0; --ow:#F8F7F4;
+  --font-d:'Boska',Georgia,serif; --font-b:'Satoshi',system-ui,sans-serif;
+  --bg:#F8F7F4; --surf:#FFFFFF; --raised:#F0EEE9;
+  --tp:#0D1235; --ts:#5A5F7A; --tm:#9499B4;
+  --border:#E2E0DA; --borderS:#C8C6BE;
+  --sh-sm:0 1px 4px rgba(13,18,53,.07);
+  --sh-md:0 4px 20px rgba(13,18,53,.10);
+  --r1:4px; --r2:8px; --r3:16px;
+}
+[data-theme="dark"] {
+  --bg:#080C22; --surf:#0D1235; --raised:#151D4A;
+  --tp:#EEECEA; --ts:#9499B4; --tm:#5A5F7A;
+  --border:#1E274A; --borderS:#2A3660;
+  --sh-sm:0 1px 4px rgba(0,0,0,.3);
+  --sh-md:0 4px 20px rgba(0,0,0,.35);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);font-size:16px;line-height:1.6;background:var(--bg);color:var(--tp);transition:background .3s,color .3s}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer;border:none;background:none}
+
+.container{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;letter-spacing:.02em;border-radius:var(--r1);transition:all .18s;white-space:nowrap;line-height:1}
+.btn svg{width:16px;height:16px;flex-shrink:0}
+.btn-pink{background:var(--pink);color:#fff;padding:14px 28px}
+.btn-pink:hover{background:var(--pink-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,21,125,.35)}
+.btn-sm{font-size:12px;padding:9px 18px}
+
+/* Nav */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--bd);transition:box-shadow .3s}
+#nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:1.15rem;font-weight:700;color:var(--ow);flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-link{font-size:14px;font-weight:500;color:rgba(248,247,244,.6);cursor:pointer;transition:color .15s;background:none;border:none;padding:0}
+.nav-link:hover,.nav-link.active{color:var(--ow)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-icon-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:rgba(248,247,244,.65);transition:all .15s;background:transparent;border:none;cursor:pointer}
+.nav-icon-btn:hover{background:rgba(248,247,244,.1);color:var(--ow)}
+.nav-icon-btn svg{width:18px;height:18px}
+.nav-hamburger{display:none}
+#mobile-menu{display:none;position:fixed;inset:0;background:var(--bd);z-index:190;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+#mobile-menu.open{display:flex}
+.mobile-link{font-family:var(--font-d);font-size:2rem;font-weight:500;color:rgba(248,247,244,.8);transition:color .15s;text-decoration:none}
+.mobile-link:hover{color:var(--ow)}
+
+/* Hero */
+#hero{padding-top:148px;padding-bottom:56px;background:var(--bd);position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(28,47,160,.35) 0%,transparent 55%),radial-gradient(circle at 80% 70%,rgba(232,21,125,.18) 0%,transparent 50%)}
+.hero-content{position:relative;z-index:1;max-width:760px}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:14px}
+.hero-h1{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;line-height:1.1;color:var(--ow);margin-bottom:16px;text-wrap:balance}
+.hero-sub{font-size:clamp(14px,1.6vw,16px);color:rgba(248,247,244,.55);line-height:1.6;max-width:520px}
+
+/* Mountain divider */
+.mountain-divider{background:var(--bd);line-height:0}
+.mountain-divider svg{display:block;width:100%}
+
+/* Legal content */
+#legal{padding:clamp(48px,6vw,88px) 0}
+.legal-grid{display:grid;grid-template-columns:240px 1fr;gap:clamp(32px,5vw,72px);align-items:start}
+.legal-toc{position:sticky;top:96px;font-size:13px}
+.legal-toc-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tm);margin-bottom:14px}
+.legal-toc a{display:block;padding:7px 0;color:var(--ts);border-left:2px solid var(--border);padding-left:14px;transition:all .15s}
+.legal-toc a:hover{color:var(--tp);border-left-color:var(--pink)}
+.legal-content{max-width:780px;font-size:15px;color:var(--ts);line-height:1.75}
+.legal-content h2{font-family:var(--font-d);font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:500;color:var(--tp);margin:40px 0 14px;line-height:1.25;scroll-margin-top:96px}
+.legal-content h2:first-child{margin-top:0}
+.legal-content h3{font-size:15px;font-weight:700;color:var(--tp);margin:24px 0 8px;letter-spacing:.01em}
+.legal-content p{margin-bottom:14px}
+.legal-content strong{color:var(--tp);font-weight:700}
+.legal-content a{color:var(--pink);border-bottom:1px solid transparent;transition:border-color .15s}
+.legal-content a:hover{border-bottom-color:var(--pink)}
+.legal-content ul{list-style:none;margin:10px 0 16px;padding:0}
+.legal-content ul li{padding-left:22px;position:relative;margin-bottom:6px}
+.legal-content ul li::before{content:'—';color:var(--pink);position:absolute;left:0;font-weight:700}
+.info-block{background:var(--surf);border:1px solid var(--border);border-radius:var(--r3);padding:24px 28px;margin:16px 0 24px}
+.info-block-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tm);margin-bottom:10px}
+.info-block-row{display:flex;flex-wrap:wrap;gap:4px 20px;font-size:15px}
+.info-block-row .k{color:var(--tm);min-width:140px}
+.info-block-row .v{color:var(--tp);font-weight:500}
+.callout{background:rgba(232,21,125,.08);border-left:3px solid var(--pink);border-radius:var(--r2);padding:18px 22px;margin:20px 0}
+.callout p{margin:0;font-size:14px;color:var(--ts)}
+.callout strong{color:var(--tp)}
+.legal-meta{font-size:13px;color:var(--tm);padding-top:24px;margin-top:40px;border-top:1px solid var(--border)}
+
+/* Footer */
+footer{background:var(--bd);padding:clamp(40px,5vw,64px) 0 28px}
+.footer-bottom-simple{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid rgba(248,247,244,.08)}
+.footer-copy{font-size:13px;color:rgba(248,247,244,.35)}
+.footer-legal{display:flex;gap:20px}
+.footer-legal a{font-size:13px;color:rgba(248,247,244,.35);transition:color .15s}
+.footer-legal a:hover,.footer-legal a.active{color:rgba(248,247,244,.7)}
+.footer-mini-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-col-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,247,244,.35);margin-bottom:14px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-link{font-size:14px;color:rgba(248,247,244,.55);transition:color .15s;cursor:pointer}
+.footer-link:hover{color:var(--ow)}
+.footer-brand-text{font-size:14px;color:rgba(248,247,244,.5);line-height:1.65;margin:12px 0 0;max-width:280px}
+
+@media(max-width:1024px){
+  .legal-grid{grid-template-columns:1fr;gap:40px}
+  .legal-toc{position:static}
+  .footer-mini-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .footer-mini-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero-h1{font-size:1.9rem}
+  .info-block-row .k{min-width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <button class="nav-icon-btn" style="position:absolute;top:20px;right:20px" onclick="closeMobileMenu()">
+    <i data-lucide="x" style="width:24px;height:24px"></i>
+  </button>
+  <a class="mobile-link" href="lre-baukomfort.html#leistungen">Leistungen</a>
+  <a class="mobile-link" href="lre-baukomfort.html#referenzen">Projekte</a>
+  <a class="mobile-link" href="lre-baukomfort.html#ueber-uns">Über uns</a>
+  <a class="mobile-link" href="karriere.html">Karriere</a>
+  <a class="mobile-link" href="lre-baukomfort.html#kontakt">Kontakt</a>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="lre-baukomfort.html">
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="4" fill="#1C2FA0"/>
+          <rect x="6" y="6" width="8" height="20" fill="#F8F7F4"/>
+          <rect x="17" y="6" width="9" height="9" fill="#E8157D"/>
+          <rect x="17" y="18" width="9" height="8" fill="rgba(248,247,244,0.25)"/>
+        </svg>
+        LRE Baukomfort
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="lre-baukomfort.html#leistungen">Leistungen</a>
+        <a class="nav-link" href="lre-baukomfort.html#referenzen">Projekte</a>
+        <a class="nav-link" href="lre-baukomfort.html#ueber-uns">Über uns</a>
+        <a class="nav-link" href="karriere.html">Karriere</a>
+        <a class="nav-link" href="lre-baukomfort.html#kontakt">Kontakt</a>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeBtn" onclick="toggleTheme()" title="Hell/Dunkel">
+          <i data-lucide="sun" id="themeIcon"></i>
+        </button>
+        <a class="btn btn-pink btn-sm" href="lre-baukomfort.html#kontakt">
+          <i data-lucide="send"></i>Kontakt
+        </a>
+        <button class="nav-icon-btn nav-hamburger" onclick="openMobileMenu()">
+          <i data-lucide="menu" style="width:22px;height:22px"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Rechtliches</div>
+      <h1 class="hero-h1">Datenschutzerklärung</h1>
+      <p class="hero-sub">Wir gehen sparsam mit Ihren Daten um — nur, was für die Anfrage oder den Auftrag nötig ist. Hier steht, was genau passiert.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Mountain divider -->
+<div class="mountain-divider">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="fill:var(--bg)">
+    <path d="M0,60 L0,38 L120,12 L240,30 L360,8 L480,28 L600,10 L720,26 L840,6 L960,24 L1080,14 L1200,32 L1320,18 L1440,36 L1440,60 Z"/>
+  </svg>
+</div>
+
+<!-- LEGAL -->
+<section id="legal">
+  <div class="container">
+    <div class="legal-grid">
+
+      <aside class="legal-toc">
+        <div class="legal-toc-title">Inhalt</div>
+        <a href="#ueberblick">1. Überblick</a>
+        <a href="#verantwortlicher">2. Verantwortlicher</a>
+        <a href="#hosting">3. Hosting & Logfiles</a>
+        <a href="#kontaktformular">4. Kontaktformular</a>
+        <a href="#bewerbung">5. Bewerbungen</a>
+        <a href="#cookies">6. Cookies</a>
+        <a href="#dritte">7. Dienste Dritter</a>
+        <a href="#rechte">8. Ihre Rechte</a>
+        <a href="#beschwerde">9. Beschwerderecht</a>
+        <a href="#aenderungen">10. Änderungen</a>
+      </aside>
+
+      <div class="legal-content">
+
+        <h2 id="ueberblick">1. Überblick &amp; allgemeine Hinweise</h2>
+        <p>Der Schutz Ihrer personenbezogenen Daten ist uns wichtig. Wir behandeln Ihre Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften (DSGVO, BDSG, DDG) sowie dieser Datenschutzerklärung.</p>
+        <p>Wenn Sie unsere Website besuchen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht.</p>
+
+        <div class="callout">
+          <p><strong>Kurz gesagt:</strong> Wir erheben Daten, die Sie uns selbst mitteilen (z. B. über das Kontaktformular), und technische Daten, die automatisch beim Besuch einer Website anfallen. Wir geben nichts an Dritte weiter — außer an Dienstleister, die wir zur Erbringung unserer Leistung benötigen (Hosting, E-Mail).</p>
+        </div>
+
+        <h2 id="verantwortlicher">2. Verantwortlicher</h2>
+        <p>Verantwortlich für die Datenverarbeitung auf dieser Website im Sinne des Art. 4 Nr. 7 DSGVO ist:</p>
+        <div class="info-block">
+          <div class="info-block-row"><span class="k">Firma</span><span class="v">LRE Baukomfort · Thomas Vogel</span></div>
+          <div class="info-block-row"><span class="k">Anschrift</span><span class="v">[Straße und Hausnummer], [PLZ] [Ort]</span></div>
+          <div class="info-block-row"><span class="k">Telefon</span><span class="v"><a href="tel:+4915784187568">0157 / 84187568</a></span></div>
+          <div class="info-block-row"><span class="k">E-Mail</span><span class="v"><a href="mailto:info@lre-baukomfort.de">info@lre-baukomfort.de</a></span></div>
+        </div>
+        <p>Ein Datenschutzbeauftragter ist gesetzlich nicht erforderlich. Fragen zum Datenschutz richten Sie bitte direkt an die oben genannten Kontaktdaten.</p>
+
+        <h2 id="hosting">3. Hosting &amp; Server-Logfiles</h2>
+        <p>Unsere Website wird bei einem externen Dienstleister gehostet ( <strong>[Name des Hosters, z. B. Hetzner Online GmbH, Gunzenhausen, Deutschland]</strong> ). Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters gespeichert.</p>
+        <p>Der Provider erhebt in sogenannten Logfiles automatisch Informationen, die Ihr Browser übermittelt. Dies sind:</p>
+        <ul>
+          <li>IP-Adresse (anonymisiert bzw. nach 7 Tagen gelöscht)</li>
+          <li>Datum und Uhrzeit der Anfrage</li>
+          <li>Zeitzonendifferenz zur Greenwich Mean Time</li>
+          <li>Inhalt der Anforderung (konkrete Seite)</li>
+          <li>HTTP-Statuscode und übertragene Datenmenge</li>
+          <li>Referrer-URL, Browsertyp, Betriebssystem</li>
+        </ul>
+        <p>Die Erfassung dieser Daten erfolgt auf Grundlage von <strong>Art. 6 Abs. 1 lit. f DSGVO</strong>. Der Websitebetreiber hat ein berechtigtes Interesse an der technisch fehlerfreien Darstellung und der Optimierung seiner Website — hierzu müssen die Server-Logfiles erfasst werden. Eine Zusammenführung dieser Daten mit anderen Datenquellen findet nicht statt.</p>
+        <p>Mit dem Hoster haben wir einen Auftragsverarbeitungsvertrag (AVV) gemäß <strong>Art. 28 DSGVO</strong> abgeschlossen.</p>
+
+        <h2 id="kontaktformular">4. Kontaktformular &amp; E-Mail-Anfragen</h2>
+        <p>Wenn Sie uns per Kontaktformular oder E-Mail Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inkl. der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.</p>
+        <p><strong>Verarbeitete Daten:</strong> Name, Telefonnummer oder E-Mail-Adresse, ggf. Angaben zum Projekt.</p>
+        <p><strong>Rechtsgrundlage:</strong></p>
+        <ul>
+          <li>Art. 6 Abs. 1 lit. b DSGVO — sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist.</li>
+          <li>Art. 6 Abs. 1 lit. f DSGVO — in den übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen.</li>
+        </ul>
+        <p><strong>Speicherdauer:</strong> Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen — insbesondere Aufbewahrungsfristen — bleiben unberührt.</p>
+
+        <h2 id="bewerbung">5. Bewerbungen</h2>
+        <p>Wir bieten Ihnen die Möglichkeit, sich bei uns zu bewerben (z. B. über unsere Karriere-Seite). Im Folgenden informieren wir Sie über Umfang, Zweck und Verwendung der im Rahmen des Bewerbungsprozesses erhobenen personenbezogenen Daten.</p>
+        <p><strong>Umfang und Zweck:</strong> Wenn Sie uns eine Bewerbung zukommen lassen, verarbeiten wir Ihre damit verbundenen personenbezogenen Daten (z. B. Kontakt- und Kommunikationsdaten, Bewerbungsunterlagen, Notizen aus Vorstellungsgesprächen), soweit dies zur Entscheidung über die Begründung eines Beschäftigungsverhältnisses erforderlich ist. Rechtsgrundlage hierfür ist <strong>§ 26 BDSG</strong> nach deutschem Recht, <strong>Art. 6 Abs. 1 lit. b DSGVO</strong> und — sofern Sie eine Einwilligung erteilt haben — <strong>Art. 6 Abs. 1 lit. a DSGVO</strong>.</p>
+        <p><strong>Aufbewahrungsdauer:</strong> Kommt ein Beschäftigungsverhältnis nicht zustande, werden Ihre Bewerbungsunterlagen spätestens <strong>sechs Monate</strong> nach Bekanntgabe der Absage gelöscht, sofern einer Löschung keine sonstigen berechtigten Interessen des Verantwortlichen entgegenstehen (z. B. Beweispflicht im Rahmen eines Verfahrens nach dem AGG). Kommt das Beschäftigungsverhältnis zustande, werden die Bewerberdaten in unserem Personalinformationssystem weiterverarbeitet.</p>
+
+        <h2 id="cookies">6. Cookies &amp; lokale Speicherung</h2>
+        <p>Unsere Website verwendet <strong>keine Analyse-, Marketing- oder Tracking-Cookies</strong>. Einzige Ausnahme: Die Einstellung Ihres Farbschemas (Hell-/Dunkelmodus) wird in Ihrem Browser-eigenen <em>localStorage</em> gespeichert, verlässt Ihr Gerät aber nicht. Rechtsgrundlage: <strong>§ 25 Abs. 2 Nr. 2 TDDDG</strong> (unbedingt erforderlicher Speicherzugriff).</p>
+
+        <h2 id="dritte">7. Einbindung externer Dienste</h2>
+        <p>Zur Darstellung der Website laden wir einige Ressourcen von Drittanbietern nach. Dabei kann Ihre IP-Adresse an die jeweiligen Anbieter übermittelt werden. Dies ist technisch erforderlich, um die Inhalte in Ihrem Browser auszuliefern. Rechtsgrundlage ist <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigtes Interesse an der ansprechenden Darstellung).</p>
+
+        <h3>Fontshare (Typografie)</h3>
+        <p>Wir binden die Schriftarten <em>Boska</em> und <em>Satoshi</em> über den Dienst <strong>Fontshare</strong> (Indian Type Foundry, Ahmedabad, Indien) ein. Details: <a href="https://www.fontshare.com/privacy-policy" target="_blank" rel="noopener noreferrer">fontshare.com/privacy-policy</a>.</p>
+
+        <h3>unpkg (Icon-Bibliothek)</h3>
+        <p>Für Icons laden wir die Bibliothek <strong>Lucide</strong> über das CDN <em>unpkg.com</em> (Cloudflare, Inc., USA). Details: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">cloudflare.com/privacypolicy</a>.</p>
+
+        <h3>Platzhalterbilder (Picsum Photos)</h3>
+        <p>In der Entwicklungs-/Vorschau-Version der Website werden Platzhalterbilder über <em>picsum.photos</em> geladen. Diese werden vor dem Produktivbetrieb durch eigene Bilder ersetzt.</p>
+
+        <h3>Terminbuchung (Calendly)</h3>
+        <p>Sofern Sie den Button „Online-Termin buchen“ klicken, werden Sie auf die Website von <strong>Calendly LLC</strong> (Atlanta, USA) weitergeleitet. Es gelten dort die Datenschutzbestimmungen von Calendly: <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">calendly.com/privacy</a>. Die Datenübermittlung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework (Angemessenheitsbeschluss der EU-Kommission).</p>
+
+        <h2 id="rechte">8. Ihre Rechte als betroffene Person</h2>
+        <p>Sie haben jederzeit die folgenden Rechte uns gegenüber, die Sie per E-Mail an <a href="mailto:info@lre-baukomfort.de">info@lre-baukomfort.de</a> geltend machen können:</p>
+        <ul>
+          <li><strong>Auskunft</strong> über die zu Ihrer Person gespeicherten Daten (Art. 15 DSGVO)</li>
+          <li><strong>Berichtigung</strong> unrichtiger oder unvollständiger Daten (Art. 16 DSGVO)</li>
+          <li><strong>Löschung</strong> Ihrer bei uns gespeicherten Daten (Art. 17 DSGVO)</li>
+          <li><strong>Einschränkung</strong> der Datenverarbeitung (Art. 18 DSGVO)</li>
+          <li><strong>Datenübertragbarkeit</strong> — Herausgabe Ihrer Daten in einem gängigen Format (Art. 20 DSGVO)</li>
+          <li><strong>Widerspruch</strong> gegen die Verarbeitung (Art. 21 DSGVO)</li>
+          <li><strong>Widerruf</strong> einer erteilten Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)</li>
+        </ul>
+
+        <h2 id="beschwerde">9. Beschwerderecht bei der Aufsichtsbehörde</h2>
+        <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde zu — insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes.</p>
+        <p>Für Baden-Württemberg:</p>
+        <div class="info-block">
+          <div class="info-block-row"><span class="k">Behörde</span><span class="v">Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg</span></div>
+          <div class="info-block-row"><span class="k">Anschrift</span><span class="v">Lautenschlagerstraße 20, 70173 Stuttgart</span></div>
+          <div class="info-block-row"><span class="k">Web</span><span class="v"><a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel="noopener noreferrer">baden-wuerttemberg.datenschutz.de</a></span></div>
+        </div>
+
+        <h2 id="aenderungen">10. Änderungen dieser Datenschutzerklärung</h2>
+        <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen in der Datenschutzerklärung umzusetzen, z. B. bei der Einführung neuer Services. Für Ihren erneuten Besuch gilt dann die neue Datenschutzerklärung.</p>
+
+        <div class="legal-meta">Stand: April 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-mini-grid">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:1.1rem;font-weight:700;color:var(--ow)">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="4" fill="#1C2FA0"/>
+            <rect x="6" y="6" width="8" height="20" fill="#F8F7F4"/>
+            <rect x="17" y="6" width="9" height="9" fill="#E8157D"/>
+            <rect x="17" y="18" width="9" height="8" fill="rgba(248,247,244,0.25)"/>
+          </svg>
+          LRE Baukomfort
+        </div>
+        <p class="footer-brand-text">Handwerksbetrieb im Schwarzwald. Fensterbau, Dachsanierung, Innenausbau.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <div class="footer-links">
+          <a class="footer-link" href="lre-baukomfort.html">Startseite</a>
+          <a class="footer-link" href="lre-baukomfort.html#leistungen">Leistungen</a>
+          <a class="footer-link" href="karriere.html">Karriere</a>
+          <a class="footer-link" href="lre-baukomfort.html#kontakt">Kontakt</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Kontakt</div>
+        <div class="footer-links">
+          <a class="footer-link" href="tel:+4915784187568">0157 / 84187568</a>
+          <a class="footer-link" href="mailto:info@lre-baukomfort.de">info@lre-baukomfort.de</a>
+          <span class="footer-link">Mo–Fr 7:00–17:00 Uhr</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom-simple">
+      <div class="footer-copy">© 2025 LRE Baukomfort · Thomas Vogel</div>
+      <div class="footer-legal">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html" class="active">Datenschutz</a>
+        <a href="agb.html">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+lucide.createIcons();
+
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  const icon = document.getElementById('themeIcon');
+  icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+  lucide.createIcons();
+}
+
+function openMobileMenu(){document.getElementById('mobile-menu').classList.add('open');document.body.style.overflow='hidden'}
+function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');document.body.style.overflow=''}
+</script>
+</body>
+</html>
