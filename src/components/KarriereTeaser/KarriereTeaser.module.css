@@ -1,0 +1,52 @@
+.section {
+  padding: clamp(56px, 7vw, 96px) 0;
+  background: var(--raised);
+}
+:global([data-theme='dark']) .section {
+  background: var(--surf);
+}
+.inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+}
+.text .eyebrowWrap {
+  margin-bottom: 12px;
+}
+.text h2 {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 500;
+  color: var(--tp);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.text p {
+  font-size: 15px;
+  color: var(--ts);
+  line-height: 1.6;
+  max-width: 560px;
+}
+.jobs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.jobBadge {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--ts);
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
+}

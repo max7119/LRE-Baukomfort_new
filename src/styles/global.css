@@ -1,0 +1,232 @@
+/* =====================================================
+   TOKENS
+   ===================================================== */
+:root {
+  --pink: #e8157d;
+  --pink-dark: #c01065;
+  --bd: #0d1235;
+  --bm: #1c2fa0;
+  --ow: #f8f7f4;
+  --forest: #2d6a4f;
+
+  --font-d: 'Boska', Georgia, serif;
+  --font-b: 'Satoshi', system-ui, sans-serif;
+
+  --bg: #f8f7f4;
+  --surf: #ffffff;
+  --raised: #f0eee9;
+  --tp: #0d1235;
+  --ts: #5a5f7a;
+  --tm: #9499b4;
+  --border: #e2e0da;
+  --borderS: #c8c6be;
+
+  --sh-sm: 0 1px 4px rgba(13, 18, 53, 0.07);
+  --sh-md: 0 4px 20px rgba(13, 18, 53, 0.1);
+  --sh-lg: 0 16px 48px rgba(13, 18, 53, 0.13);
+
+  --r1: 4px;
+  --r2: 8px;
+  --r3: 16px;
+  --r4: 24px;
+  --density: 1;
+  --texture: 0;
+}
+
+[data-theme='dark'] {
+  --bg: #080c22;
+  --surf: #0d1235;
+  --raised: #151d4a;
+  --tp: #eeecea;
+  --ts: #9499b4;
+  --tm: #5a5f7a;
+  --border: #1e274a;
+  --borderS: #2a3660;
+  --sh-sm: 0 1px 4px rgba(0, 0, 0, 0.3);
+  --sh-md: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --sh-lg: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* =====================================================
+   RESET & BASE
+   ===================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-b);
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--tp);
+  transition: background 0.3s, color 0.3s;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font-family: var(--font-b);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+input,
+textarea,
+select {
+  font-family: var(--font-b);
+}
+ul {
+  list-style: none;
+}
+
+/* =====================================================
+   TOPO TEXTURE (Schwarzwald pattern)
+   ===================================================== */
+.topo-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M0 60 Q30 40 60 60 Q90 80 120 60' stroke='%230D1235' stroke-width='0.6' fill='none' opacity='0.06'/%3E%3Cpath d='M0 40 Q30 20 60 40 Q90 60 120 40' stroke='%230D1235' stroke-width='0.6' fill='none' opacity='0.04'/%3E%3Cpath d='M0 80 Q30 60 60 80 Q90 100 120 80' stroke='%230D1235' stroke-width='0.6' fill='none' opacity='0.04'/%3E%3Cpath d='M0 20 Q30 0 60 20 Q90 40 120 20' stroke='%230D1235' stroke-width='0.5' fill='none' opacity='0.03'/%3E%3Cpath d='M0 100 Q30 80 60 100 Q90 120 120 100' stroke='%230D1235' stroke-width='0.5' fill='none' opacity='0.03'/%3E%3C/svg%3E");
+}
+[data-theme='dark'] .topo-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M0 60 Q30 40 60 60 Q90 80 120 60' stroke='%23F8F7F4' stroke-width='0.6' fill='none' opacity='0.05'/%3E%3Cpath d='M0 40 Q30 20 60 40 Q90 60 120 40' stroke='%23F8F7F4' stroke-width='0.6' fill='none' opacity='0.03'/%3E%3Cpath d='M0 80 Q30 60 60 80 Q90 100 120 80' stroke='%23F8F7F4' stroke-width='0.6' fill='none' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* =====================================================
+   UTILS
+   ===================================================== */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pink);
+}
+.section-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tm);
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  border-radius: var(--r1);
+  transition: all 0.18s;
+  white-space: nowrap;
+  line-height: 1;
+}
+.btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.btn-pink {
+  background: var(--pink);
+  color: #fff;
+  padding: 14px 28px;
+}
+.btn-pink:hover {
+  background: var(--pink-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(232, 21, 125, 0.35);
+}
+.btn-dark {
+  background: var(--bd);
+  color: var(--ow);
+  padding: 14px 28px;
+}
+.btn-dark:hover {
+  background: var(--bm);
+}
+[data-theme='dark'] .btn-dark {
+  background: var(--ow);
+  color: var(--bd);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--tp);
+  border: 1.5px solid var(--borderS);
+  padding: 13px 27px;
+}
+.btn-outline:hover {
+  border-color: var(--tp);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--tp);
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--borderS);
+  border-radius: 0;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-ghost:hover {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+.btn-sm {
+  font-size: 12px;
+  padding: 9px 18px;
+}
+.btn-lg {
+  font-size: 16px;
+  padding: 18px 36px;
+}
+
+/* =====================================================
+   MOUNTAIN DIVIDER (shared)
+   ===================================================== */
+.mountain-divider {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background: var(--bg);
+}
+.mountain-divider svg {
+  display: block;
+  width: 100%;
+}
