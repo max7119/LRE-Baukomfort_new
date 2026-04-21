@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 /* =====================================================
    TOKENS
@@ -947,12 +948,50 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 reveals.forEach(el => io.observe(el));
 
+/* ---- Supabase ---- */
+const _sb = supabase.createClient(
+  'https://xjfwrsylohgakryfnxss.supabase.co',
+  'sb_publishable_c_qejvycJXNkGVSKrhOFBQ_DoQd_7Tt'
+);
+
 /* ---- Form ---- */
-function submitForm(e, id) {
+async function submitForm(e, successId) {
   e.preventDefault();
-  document.getElementById(id).style.display = 'block';
-  e.target.style.opacity = '.5';
-  e.target.style.pointerEvents = 'none';
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const origHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.textContent = 'Wird gesendet…';
+
+  const name        = form.querySelector('input[type="text"]').value.trim();
+  const telefon     = form.querySelector('input[type="tel"]').value.trim();
+  const email       = form.querySelector('input[type="email"]').value.trim();
+  const leistung    = form.querySelector('select').value;
+  const beschreibung = form.querySelector('textarea').value.trim();
+  const fileInput   = form.querySelector('input[type="file"]');
+
+  const datei_urls = [];
+  for (const file of fileInput.files) {
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2)}-${file.name}`;
+    const { data } = await _sb.storage.from('kontakt-uploads').upload(path, file);
+    if (data) datei_urls.push(data.path);
+  }
+
+  const { error } = await _sb.from('kontakt_anfragen').insert({
+    name, telefon, email, leistung, beschreibung, datei_urls
+  });
+
+  if (error) {
+    btn.disabled = false;
+    btn.innerHTML = origHTML;
+    lucide.createIcons();
+    alert('Fehler beim Senden. Bitte versuchen Sie es erneut.');
+    return;
+  }
+
+  document.getElementById(successId).style.display = 'block';
+  form.style.opacity = '.5';
+  form.style.pointerEvents = 'none';
 }
 
 /* ---- Tweaks helpers ---- */
