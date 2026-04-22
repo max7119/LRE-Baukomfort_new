@@ -3,14 +3,6 @@ import { Phone, Mail, MapPin, Calendar, Send, UploadCloud } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import styles from './Kontakt.module.css';
 
-const REGIONS = [
-  'Villingen-Schwenningen',
-  'Freiburg',
-  'Titisee-Neustadt',
-  'Hinterzarten',
-  'Rottweil',
-  'Hochschwarzwald',
-];
 
 type SubmitState = 'idle' | 'sending' | 'success' | 'error';
 
