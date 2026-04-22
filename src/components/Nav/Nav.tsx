@@ -22,9 +22,10 @@ export default function Nav({ ctaVariant = 'anfragen', activePage = 'home' }: Na
   const goToSection = useSectionNav();
   const location = useLocation();
 
-  const openMenu = () => {
-    setMenuOpen(true);
-    document.body.style.overflow = 'hidden';
+  const toggleMenu = () => {
+    const next = !menuOpen;
+    setMenuOpen(next);
+    document.body.style.overflow = next ? 'hidden' : '';
   };
   const closeMenu = () => {
     setMenuOpen(false);
@@ -98,13 +99,15 @@ export default function Nav({ ctaVariant = 'anfragen', activePage = 'home' }: Na
               >
                 {theme === 'dark' ? <Moon /> : <Sun />}
               </button>
-              <button className="btn btn-pink btn-sm" onClick={onCtaClick}>
-                <Send />
-                {ctaLabel}
-              </button>
+              <div className={styles.ctaWrap}>
+                <button className="btn btn-pink btn-sm" onClick={onCtaClick}>
+                  <Send />
+                  {ctaLabel}
+                </button>
+              </div>
               <button
                 className={`${styles.iconBtn} ${styles.hamburger}`}
-                onClick={openMenu}
+                onClick={toggleMenu}
                 aria-label="Menü öffnen"
               >
                 <Menu style={{ width: 22, height: 22 }} />

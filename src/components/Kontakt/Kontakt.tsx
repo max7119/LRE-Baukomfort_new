@@ -227,15 +227,9 @@ export default function Kontakt() {
                 <MapPin />
               </div>
               <div>
-                <div className={styles.label}>Region</div>
-                <div className={styles.val}>Schwarzwald & Baar</div>
-                <div className={styles.regionTags}>
-                  {REGIONS.map((r) => (
-                    <span key={r} className={styles.regionTag}>
-                      {r}
-                    </span>
-                  ))}
-                </div>
+                <div className={styles.label}>Standort</div>
+                
+                <div className={styles.val}>Haldenweg 15, 79853 Lenzkirch</div>
               </div>
             </div>
             <div className={styles.calendlyWrap}>

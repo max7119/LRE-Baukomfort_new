@@ -14,7 +14,7 @@ interface FooterProps {
 
 export default function Footer({ variant = 'full', legalActive = null }: FooterProps) {
   const goToSection = useSectionNav();
-  const year = '2025';
+  const year = new Date().getFullYear().toString();
 
   if (variant === 'mini') {
     return (
@@ -171,7 +171,7 @@ export default function Footer({ variant = 'full', legalActive = null }: FooterP
           </div>
         </div>
         <div className={styles.bottom}>
-          <div className={styles.copy}>© {year} LRE Baukomfort · Thomas Vogel</div>
+          <div className={styles.copy}>© {year} LRE Baukomfort</div>
           <div className={styles.legal}>
             <Link to="/impressum">Impressum</Link>
             <Link to="/datenschutz">Datenschutz</Link>

@@ -72,7 +72,11 @@
   height: 18px;
 }
 .hamburger {
-  display: none;
+  display: none !important;
+}
+
+.ctaWrap {
+  display: block;
 }
 
 @media (max-width: 768px) {
@@ -80,6 +84,9 @@
     display: none;
   }
   .hamburger {
-    display: flex;
+    display: flex !important;
+  }
+  .ctaWrap {
+    display: none;
   }
 }

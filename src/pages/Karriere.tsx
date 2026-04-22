@@ -255,7 +255,7 @@ export default function Karriere() {
         <div className="container">
           <div className="reveal">
             <div className="eyebrow">Warum LRE</div>
-            <h2>Was dich erwartet — ohne Marketing-Sprech</h2>
+            <h2>Was dich erwartet</h2>
           </div>
           <div className={styles.whyGrid}>
             {WHY.map((w, i) => (
