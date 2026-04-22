@@ -19,6 +19,7 @@ import MountainDivider from '../components/MountainDivider/MountainDivider';
 import Footer from '../components/Footer/Footer';
 import styles from './Karriere.module.css';
 
+
 type JobBadge = { label: string; variant: 'sofort' | 'flexibel' };
 type JobLocation = { text: string; icon: 'map-pin' | 'briefcase' | 'euro' };
 type JobMeta = JobLocation[];
@@ -151,6 +152,7 @@ export default function Karriere() {
   const [stelle, setStelle] = useState('');
   const [kontakt, setKontakt] = useState('');
   const [beschreibung, setBeschreibung] = useState('');
+  const [datenschutz, setDatenschutz] = useState(false);
   const [status, setStatus] = useState<SubmitState>('idle');
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -196,15 +198,27 @@ export default function Karriere() {
       kontakt,
       beschreibung,
       datei_urls,
+      datenschutz_akzeptiert: datenschutz,
     });
 
     if (error) {
       setStatus('error');
-      alert('Fehler beim Senden. Bitte versuchen Sie es erneut.');
+      alert(
+        error.code === '42501'
+          ? 'Du hast bereits mehrere Bewerbungen gesendet. Bitte versuche es in einer Stunde erneut.'
+          : 'Fehler beim Senden. Bitte versuche es erneut.'
+      );
       return;
     }
 
     setStatus('success');
+    setVorname('');
+    setNachname('');
+    setStelle('');
+    setKontakt('');
+    setBeschreibung('');
+    setDatenschutz(false);
+    if (fileRef.current) fileRef.current.value = '';
   };
 
   const sent = status === 'success';
@@ -347,7 +361,7 @@ export default function Karriere() {
                         </button>
                         <span className={styles.orPhone}>
                           Oder anrufen:{' '}
-                          <a href="tel:+4977200000000">07720 000 000</a>
+                          <a href="tel:+4915784187568">0157 / 84187568</a>
                         </span>
                       </div>
                     </div>
@@ -463,7 +477,6 @@ export default function Karriere() {
                     <input
                       id="bw-vorname"
                       type="text"
-                      placeholder="Max"
                       required
                       value={vorname}
                       onChange={(e) => setVorname(e.target.value)}
@@ -474,7 +487,6 @@ export default function Karriere() {
                     <input
                       id="bw-nachname"
                       type="text"
-                      placeholder="Mustermann"
                       required
                       value={nachname}
                       onChange={(e) => setNachname(e.target.value)}
@@ -500,7 +512,6 @@ export default function Karriere() {
                   <input
                     id="bw-kontakt"
                     type="text"
-                    placeholder="07720 123456 oder max@muster.de"
                     required
                     value={kontakt}
                     onChange={(e) => setKontakt(e.target.value)}
@@ -533,10 +544,26 @@ export default function Karriere() {
                     <div className={styles.uzSub}>PDF, DOC, JPG bis 10 MB</div>
                   </div>
                 </div>
+                <label className={styles.optin}>
+                  <input
+                    type="checkbox"
+                    required
+                    checked={datenschutz}
+                    onChange={(e) => setDatenschutz(e.target.checked)}
+                  />
+                  <span className={styles.optinText}>
+                    Ich habe die{' '}
+                    <a href="/datenschutz" target="_blank" rel="noopener noreferrer">
+                      Datenschutzerklärung
+                    </a>{' '}
+                    gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung
+                    meiner Bewerbung zu. *
+                  </span>
+                </label>
                 <button
                   type="submit"
                   className="btn btn-pink"
-                  disabled={status === 'sending'}
+                  disabled={status === 'sending' || !datenschutz}
                   style={{ width: '100%', justifyContent: 'center', marginTop: 4 }}
                 >
                   <Send />
@@ -549,14 +576,14 @@ export default function Karriere() {
                 Danke! Wir melden uns innerhalb von 2 Werktagen bei dir.
               </div>
               <div className={styles.fallbackNote}>
-                Oder direkt: <a href="tel:+4977200000000">07720 000 000</a>
+                Oder direkt: <a href="tel:+4915784187568">0157 / 84187568</a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <Footer variant="mini" />
+       <Footer variant="full" />
     </>
   );
 }

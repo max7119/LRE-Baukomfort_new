@@ -9,11 +9,11 @@ interface Region {
 }
 
 const REGIONS: Region[] = [
-  { name: 'Villingen-Schwenningen', km: 'Heimatort' },
-  { name: 'Rottweil', km: '~30 km' },
-  { name: 'Titisee-Neustadt', km: '~45 km' },
-  { name: 'Hinterzarten', km: '~50 km' },
-  { name: 'Freiburg', km: '~65 km', far: true },
+  { name: 'Lenzkirch', km: 'Heimatort' },
+  { name: 'Rottweil', km: '~50 km' },
+  { name: 'Titisee-Neustadt', km: '~10 km' },
+  { name: 'Hinterzarten', km: '~10 km' },
+  { name: 'Freiburg', km: '~35 km', far: true },
   { name: 'Hochschwarzwald', km: 'gesamte Region', far: true },
 ];
 

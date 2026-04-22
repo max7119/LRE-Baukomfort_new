@@ -5,6 +5,7 @@ import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
 import AGB from './pages/AGB';
 import ScrollToTopOrHash from './components/ScrollToTopOrHash/ScrollToTopOrHash';
+import CookieBanner from './components/CookieBanner/CookieBanner';
 import { ThemeProvider } from './context/ThemeContext';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/agb" element={<AGB />} />
         <Route path="*" element={<Home />} />
       </Routes>
+      <CookieBanner />
     </ThemeProvider>
   );
 }

@@ -125,6 +125,19 @@
 .legal a.active {
   color: rgba(248, 247, 244, 0.7);
 }
+.cookieBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-b);
+  font-size: 13px;
+  color: rgba(248, 247, 244, 0.35);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.cookieBtn:hover {
+  color: rgba(248, 247, 244, 0.7);
+}
 
 @media (max-width: 1024px) {
   .grid {

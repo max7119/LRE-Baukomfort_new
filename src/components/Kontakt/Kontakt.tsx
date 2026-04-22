@@ -20,6 +20,7 @@ export default function Kontakt() {
   const [email, setEmail] = useState('');
   const [leistung, setLeistung] = useState('');
   const [beschreibung, setBeschreibung] = useState('');
+  const [datenschutz, setDatenschutz] = useState(false);
   const [status, setStatus] = useState<SubmitState>('idle');
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -46,15 +47,27 @@ export default function Kontakt() {
       leistung,
       beschreibung,
       datei_urls,
+      datenschutz_akzeptiert: datenschutz,
     });
 
     if (error) {
       setStatus('error');
-      alert('Fehler beim Senden. Bitte versuchen Sie es erneut.');
+      alert(
+        error.code === '42501'
+          ? 'Sie haben bereits mehrere Anfragen gesendet. Bitte versuchen Sie es in einer Stunde erneut.'
+          : 'Fehler beim Senden. Bitte versuchen Sie es erneut.'
+      );
       return;
     }
 
     setStatus('success');
+    setName('');
+    setTelefon('');
+    setEmail('');
+    setLeistung('');
+    setBeschreibung('');
+    setDatenschutz(false);
+    if (fileRef.current) fileRef.current.value = '';
   };
 
   const sent = status === 'success';
@@ -150,11 +163,27 @@ export default function Kontakt() {
                   <div className={styles.uzSub}>JPG, PNG, PDF bis 10 MB</div>
                 </div>
               </div>
+              <label className={styles.optin}>
+                <input
+                  type="checkbox"
+                  required
+                  checked={datenschutz}
+                  onChange={(e) => setDatenschutz(e.target.checked)}
+                />
+                <span className={styles.optinText}>
+                  Ich habe die{' '}
+                  <a href="/datenschutz" target="_blank" rel="noopener noreferrer">
+                    Datenschutzerklärung
+                  </a>{' '}
+                  gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung
+                  meiner Anfrage zu. *
+                </span>
+              </label>
               <div className={styles.submitRow}>
                 <button
                   type="submit"
                   className="btn btn-pink btn-lg"
-                  disabled={status === 'sending'}
+                  disabled={status === 'sending' || !datenschutz}
                 >
                   <Send />
                   {status === 'sending' ? 'Wird gesendet…' : 'Anfrage absenden'}

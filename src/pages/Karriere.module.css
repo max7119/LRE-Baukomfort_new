@@ -468,6 +468,31 @@
   color: var(--tm);
   margin-top: 3px;
 }
+.optin {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+.optin input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  margin-top: 2px;
+  accent-color: var(--pink);
+  cursor: pointer;
+}
+.optinText {
+  font-size: 13px;
+  color: var(--ts);
+  line-height: 1.5;
+}
+.optinText a {
+  color: var(--pink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .success {
   display: none;
   background: #d1fae5;

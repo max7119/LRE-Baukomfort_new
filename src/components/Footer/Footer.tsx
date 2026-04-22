@@ -75,6 +75,14 @@ export default function Footer({ variant = 'full', legalActive = null }: FooterP
               <Link to="/agb" className={legalActive === 'agb' ? 'active' : ''}>
                 AGB
               </Link>
+              <button
+                className={styles.cookieBtn}
+                onClick={() =>
+                  (window as typeof window & { openCookieSettings?: () => void }).openCookieSettings?.()
+                }
+              >
+                Cookie-Einstellungen
+              </button>
             </div>
           </div>
         </div>
@@ -168,6 +176,14 @@ export default function Footer({ variant = 'full', legalActive = null }: FooterP
             <Link to="/impressum">Impressum</Link>
             <Link to="/datenschutz">Datenschutz</Link>
             <Link to="/agb">AGB</Link>
+            <button
+              className={styles.cookieBtn}
+              onClick={() =>
+                (window as typeof window & { openCookieSettings?: () => void }).openCookieSettings?.()
+              }
+            >
+              Cookie-Einstellungen
+            </button>
           </div>
         </div>
       </div>

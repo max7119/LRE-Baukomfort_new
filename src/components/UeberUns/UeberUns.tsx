@@ -13,7 +13,7 @@ export default function UeberUns() {
             <div className={styles.badge}>
               <div className={styles.badgeN}>100%</div>
               <div className={styles.badgeL}>
-                eigene Mitarbeiter keine Subunternehmer
+                eigene Mitarbeiter
               </div>
             </div>
           </div>
@@ -26,11 +26,11 @@ export default function UeberUns() {
             </h2>
             <p>
               LRE Baukomfort ist kein Konzern. Wir sind ein Handwerksbetrieb aus dem Schwarzwald
-              mit Leuten, die morgens in Villingen-Schwenningen aufstehen und abends wissen, was
+              mit Leuten, die morgens in Lenzkirch aufstehen und abends wissen, was
               sie geleistet haben.
             </p>
             <p>
-              Keine Subunternehmerkette. Keine Telefonzentrale irgendwo. Wer anruft, spricht mit
+              Keine Telefonzentrale irgendwo. Wer anruft, spricht mit
               jemandem, der das Projekt kennt.
             </p>
             <div className={styles.values}>
