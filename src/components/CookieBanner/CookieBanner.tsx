@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useCookieConsent } from './useCookieConsent';
-import Logo from '../Logo/Logo';
 import styles from './CookieBanner.module.css';
 
 export default function CookieBanner() {
@@ -20,11 +19,6 @@ export default function CookieBanner() {
     <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="Cookie-Einstellungen">
       <div className={styles.banner}>
         <div className={styles.inner}>
-          <div className={styles.logo}>
-            <Logo size={22} />
-            <span>LRE Baukomfort</span>
-          </div>
-
           <p className={styles.text}>
             Wir verwenden technisch notwendige Cookies um
             Ihre Darstellungseinstellungen zu speichern. Es werden keine Tracking-Dienste
